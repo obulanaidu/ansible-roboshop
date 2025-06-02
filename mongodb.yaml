@@ -1,0 +1,14 @@
+- name: configuring mongodb server
+  hosts: mongodb
+  become: yes
+  tasks:
+  - name: install mongodb server
+    ansible.builtin.dnf:
+      name: mongod
+      state: installed
+
+  - name: install mongodb server
+    ansible.builtin.service:
+      name: mongod
+      state: started
+      enabled: yes
