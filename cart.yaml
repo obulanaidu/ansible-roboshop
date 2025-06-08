@@ -32,7 +32,7 @@
   # remote_src means files already exist in remote server
   - name: extract the code 
     ansible.builtin.unarchive:
-      src: /tmp/cartr.zip
+      src: /tmp/cart.zip
       dest: /app
       remote_src: yes
 
