@@ -12,12 +12,6 @@
       name: nodejs
       state: present
   
-  - name: enable and start nodejs
-    ansible.builtin.service:
-      name: nodejs
-      state: started
-      enabled: yes
-  
   - name: create roboshop user
     ansible.builtin.user:
       name: roboshop
