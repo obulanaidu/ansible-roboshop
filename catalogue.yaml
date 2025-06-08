@@ -67,8 +67,8 @@
 
   - name: load products data
     community.mongodb.mongodb_shell:
-    file: "/app/db/master-data.js"
-    idempotent: yes
-    login_host: mongodb.obul.site
+      file: "/app/db/master-data.js"
+      idempotent: yes
+      login_host: mongodb.obul.site
 
   
