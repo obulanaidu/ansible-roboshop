@@ -8,17 +8,6 @@
   - name: enable nginx:1.24
     ansible.builtin.command: dnf module enable nginx:1.24 -y
 
-  - name: install redis
-    ansible.builtin.dnf:
-      name: redis
-      state: present
-
-  - name: start and enable mongodb
-    ansible.builtin.service:
-      name: mongod
-      state: started
-      enabled: yes
-
   - name: remove html directory
     ansible.builtin.file:
       path: /app/usr/share/nginx/html/
