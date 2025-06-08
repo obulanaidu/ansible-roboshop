@@ -8,6 +8,17 @@
   - name: enable nginx:1.24
     ansible.builtin.command: dnf module enable nginx:1.24 -y
 
+  - name: install nginx server
+    ansible.builtin.dnf:
+      name: nginx
+      state: present
+
+  - name: start and enable nginx
+    ansible.builtin.service:
+      name: nginx
+      state: started
+      enabled: yes
+
   - name: remove html directory
     ansible.builtin.file:
       path: /app/usr/share/nginx/html/
@@ -34,7 +45,7 @@
       path: /etc/nginx/nginx.conf
       state: absent
 
-  - name: copy roboshop nginx
+  - name: copy roboshop nginx conf
     ansible.builtin.copy:
       src: nginx.conf
       dest: /etc/nginx/nginx.conf
