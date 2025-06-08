@@ -65,12 +65,6 @@
       name: mongodb-mongosh
       state: present
 
-  - name: load products data
-    community.mongodb.mongodb_shell:
-      file: "/app/db/master-data.js"
-      idempotent: yes
-      login_host: mongodb.obul.site
-
   - name: check products loaded or not
     ansible.builtin.command: mongosh --host mongodb.obul.site --eval 'db.getMongo'().getDBNames().indexOf("catalogue")
     register: catalogue_output
