@@ -71,8 +71,8 @@
       idempotent: yes
       login_host: mongodb.obul.site
 
-  - name: check whether products loaded or not
-    ansible.builtin.command: mongosh --host mongodb.obul.site --eval 'db.getMongo'().getDBNames().indexOf("catalogue")')
+  - name: check products loaded or not
+    ansible.builtin.command: mongosh --host mongodb.obul.site --eval 'db.getMongo'().getDBNames().indexOf("catalogue")'
     register: catalogue_output
 
   - name: print catalogue output
