@@ -1,6 +1,6 @@
 - name: configuring payment component
   hosts: payment
-  beecome: yes
+  become: yes
   tasks:
   - name: install python3 packages
     ansible.builtin.dnf:
