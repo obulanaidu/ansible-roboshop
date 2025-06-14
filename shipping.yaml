@@ -18,6 +18,11 @@
     - cryptography
     - PyMySQL
 
+  - name: create app directory
+    ansible.builtin.file:
+      name: /app
+      state: directory
+
   - name: create roboshop system user
     ansible.builtin.user:
       name: roboshop
@@ -33,7 +38,7 @@
     # remote_src means files already exist in remote server
   - name: extract the code 
     ansible.builtin.unarchive:
-      src: /tmp/catalogue.zip
+      src: /tmp/shipping.zip
       dest: /app
       remote_src: yes
 
@@ -62,27 +67,32 @@
      state: started
      enabled: yes
 
-  - name: connect to mysql app user
-    community.mysql.mysql_info:
-    login_user: shipping
-    login_password: RoboShop@1
-    login_host: mysql.obul.site
-    login_db: cities  
+  # - name: connect to mysql app user
+  #   community.mysql.mysql_info:
+  #   login_user: shipping
+  #   login_password: RoboShop@1
+  #   login_host: mysql.obul.site
+  #   login_db: cities  
 
   - name: import data
-    community.mysql.mysql_info:
-    login_user: shipping
-    login_password: RoboShop@1
-    login_host: mysql.obul.site
-    login_db: cities
-    state: import
-    target: "{{ item }}"
+    tags:
+    - import
+    community.mysql.mysql_db:
+      name: all
+      login_user: shipping
+      login_password: RoboShop@1
+      login_host: mysql.obul.site
+      login_db: cities
+      state: import
+      target: "{{ item }}"
     loop:
     - /app/db/schema.PyMySQL
     - /app/db/app-user.sql
     - /app/db/mater-data.sql
 
   - name: restart shipping
+    tags:
+    - import
     ansible.builtin.service:
       state: restarted
       name: shipping
