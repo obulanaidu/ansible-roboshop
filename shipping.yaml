@@ -79,10 +79,9 @@
     - import
     community.mysql.mysql_db:
       name: all
-      login_user: shipping
+      login_user: root
       login_password: RoboShop@1
       login_host: mysql.obul.site
-      login_db: cities
       state: import
       target: "{{ item }}"
     loop:
@@ -91,6 +90,8 @@
     - /app/db/mater-data.sql
 
   - name: restart shipping
+    tags:
+    - import
     ansible.builtin.service:
       state: restarted
       name: shipping
