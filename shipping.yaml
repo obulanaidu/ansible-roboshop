@@ -10,7 +10,7 @@
     - maven
     - mysql
 
-  - name: install PyMySQL and cryptography
+  - name: install cryptography and PyMySQL
     ansible.builtin.pip:
       name: "{{ item }}"
       executable: pip3.9
@@ -35,7 +35,6 @@
       url: https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip
       dest: /tmp/shipping.zip
 
-    # remote_src means files already exist in remote server
   - name: extract the code 
     ansible.builtin.unarchive:
       src: /tmp/shipping.zip
@@ -63,9 +62,9 @@
   
   - name: enable and start server
     ansible.builtin.service:
-     name: shipping
-     state: started
-     enabled: yes
+      name: shipping
+      state: started
+      enabled: yes
 
   # - name: connect to mysql app user
   #   community.mysql.mysql_info:
